@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>bundleid</key>
+	<string>31mskz10</string>
+	<key>connections</key>
+	<dict>
+		<key>5EAACAC8-0884-4375-825B-99407DCF28E4</key>
+		<array>
+			<dict>
+				<key>destinationuid</key>
+				<string>EDB7EA3C-3E5C-4C99-A058-3592F7FA02AE</string>
+				<key>modifiers</key>
+				<integer>0</integer>
+				<key>modifiersubtext</key>
+				<string></string>
+				<key>vitoclose</key>
+				<false/>
+			</dict>
+		</array>
+	</dict>
+	<key>createdby</key>
+	<string>31mskz10</string>
+	<key>description</key>
+	<string>Search webrandum.net</string>
+	<key>disabled</key>
+	<false/>
+	<key>name</key>
+	<string>Webrandum Search</string>
+	<key>objects</key>
+	<array>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>alfredfiltersresults</key>
+				<false/>
+				<key>alfredfiltersresultsmatchmode</key>
+				<integer>0</integer>
+				<key>argumenttrimmode</key>
+				<integer>0</integer>
+				<key>argumenttype</key>
+				<integer>0</integer>
+				<key>escaping</key>
+				<integer>36</integer>
+				<key>keyword</key>
+				<string>wr</string>
+				<key>queuedelaycustom</key>
+				<integer>3</integer>
+				<key>queuedelayimmediatelyinitially</key>
+				<true/>
+				<key>queuedelaymode</key>
+				<integer>0</integer>
+				<key>queuemode</key>
+				<integer>1</integer>
+				<key>runningsubtext</key>
+				<string></string>
+				<key>script</key>
+				<string>require('workflows.php');
+$w = new Workflows();
+
+$q = "{query}";
+$json = $w-&gt;request("http://webrandum.net/wp-json/wp/v2/posts/?search=" . urlencode( $q )."&amp;_embed");
+
+for($i=1; $i &lt; 10; $i++){
+  $array = json_decode( $json , true ) ;
+  $title = $array[$i]["title"]["rendered"];
+  $link = $array[$i]["link"];
+  if($i == 9){
+    $w-&gt;result(
+      '10',
+      'https://webrandum.net/?s='.$q,
+      $q.'で検索',
+      '',
+      $icon
+    );
+  }else{
+    $w-&gt;result(
+      $i,
+      $link,
+      $title,
+      '',
+      $icon
+    );
+  }
+}
+
+echo $w-&gt;toxml();</string>
+				<key>scriptargtype</key>
+				<integer>0</integer>
+				<key>scriptfile</key>
+				<string></string>
+				<key>subtext</key>
+				<string></string>
+				<key>title</key>
+				<string>Search webrandum</string>
+				<key>type</key>
+				<integer>1</integer>
+				<key>withspace</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.input.scriptfilter</string>
+			<key>uid</key>
+			<string>5EAACAC8-0884-4375-825B-99407DCF28E4</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>browser</key>
+				<string></string>
+				<key>spaces</key>
+				<string></string>
+				<key>url</key>
+				<string>{query}</string>
+				<key>utf8</key>
+				<true/>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.openurl</string>
+			<key>uid</key>
+			<string>EDB7EA3C-3E5C-4C99-A058-3592F7FA02AE</string>
+			<key>version</key>
+			<integer>1</integer>
+		</dict>
+	</array>
+	<key>readme</key>
+	<string></string>
+	<key>uidata</key>
+	<dict>
+		<key>5EAACAC8-0884-4375-825B-99407DCF28E4</key>
+		<dict>
+			<key>xpos</key>
+			<integer>30</integer>
+			<key>ypos</key>
+			<integer>50</integer>
+		</dict>
+		<key>EDB7EA3C-3E5C-4C99-A058-3592F7FA02AE</key>
+		<dict>
+			<key>xpos</key>
+			<integer>210</integer>
+			<key>ypos</key>
+			<integer>50</integer>
+		</dict>
+	</dict>
+	<key>webaddress</key>
+	<string>https://webrandum.net/</string>
+</dict>
+</plist>
